@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -67,6 +68,21 @@ public class MainActivity extends AppCompatActivity {
       toogle = new ActionBarDrawerToggle(this,layout,toolbar,R.string.open,R.string.close);
       layout.addDrawerListener(toogle);
       toogle.syncState();
+      nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+          @Override
+          public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+              int home=R.id.nav_home;
+              int gallery=R.id.nav_gallery;
+              int settings=R.id.nav_settings;
+              int id = item.getItemId();
+              if(id==home){
 
+              }else if (id==gallery){
+
+              }
+              layout.closeDrawer(GravityCompat.START);
+              return true;
+          }
+      });
      }
 }

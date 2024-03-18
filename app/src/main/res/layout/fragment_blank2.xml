@@ -12,5 +12,13 @@
             android:id="@+id/recycle"
             />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="124dp"
+            android:layout_height="128dp" />
+
 
 </FrameLayout>

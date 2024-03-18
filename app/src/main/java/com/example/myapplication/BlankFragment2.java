@@ -1,5 +1,5 @@
 package com.example.myapplication;
-
+import com.example.myapplication.NamazAPI.*;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -19,12 +19,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.myapplication.Recyclerviewsetup.RecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.example.myapplication.Recyclerviewsetup.*;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link BlankFragment2#newInstance} factory method to
@@ -33,12 +41,6 @@ import com.example.myapplication.Recyclerviewsetup.*;
  */
 public class BlankFragment2 extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    public static final String ARG_PARAM1 = "param1";
-    public static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     public String mParam1;
     public String mParam2;
     RecyclerView Rview;
@@ -48,18 +50,13 @@ public class BlankFragment2 extends Fragment {
     private LocationListener locationListener;
 
     public double latitude,longitude;
+    public ProgressBar bar;
 
+    public boolean Location_Granted=false;
 
 
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment2 newInstance(String param1, String param2) {
-        BlankFragment2 fragment = new BlankFragment2();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     public BlankFragment2() {
         // Required empty public constructor
@@ -68,32 +65,29 @@ public class BlankFragment2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        data.add(new holderdata("fajr",""));
+        bar = view.findViewById(R.id.progressBar);
+        bar.setVisibility(View.VISIBLE);
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                 latitude = location.getLatitude();
-                 longitude = location.getLongitude();
 
-
-                Log.d("data",latitude+"/"+longitude);
-                Toast.makeText(getContext(),latitude+"/"+longitude,Toast.LENGTH_SHORT).show();
+                 if(latitude != location.getLatitude()&& longitude != location.getLongitude()&&!Location_Granted) {
+                     latitude = location.getLatitude();
+                     longitude = location.getLongitude();
+                     Log.d("data", latitude + "/" + longitude);
+                     make_api_call(latitude,longitude);
+                     Location_Granted=true;
+                 }
             }
         };
 
         if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
-        ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+           ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},100);
             return;
         }
@@ -135,7 +129,38 @@ public class BlankFragment2 extends Fragment {
     @Override
     public void onDestroy() {
         data.clear();
+        Location_Granted=false;
         super.onDestroy();
     }
+   public void make_api_call(double latitude,double longitude){
+        fetch_namaz_timing time = new fetch_namaz_timing();
 
+        time.fetcher_namaz_data().getData(2024,4,latitude,longitude,2).enqueue(new Callback<dataset>() {
+            @Override
+            public void onResponse(Call<dataset> call, Response<dataset> response) {
+                data.clear();
+                if (response.isSuccessful()){
+                         List<namazData_holder> datas = response.body().getData();
+                        time t = datas.get(0).getTimings();
+                        holderdata hdf = new holderdata("Fajr",t.getFajrTime());
+                        holderdata hdd = new holderdata("Dhur",t.getDhuhrTime());
+                        holderdata hda = new holderdata("Asr",t.getAsrTime());
+                        holderdata hdm = new holderdata("magrib",t.getMaghribTime());
+                        holderdata hdi = new holderdata("Isha",t.getIshaTime());
+                        data.add(hdf);
+                        data.add(hdd);
+                        data.add(hda);
+                        data.add(hdm);
+                        data.add(hdi);
+                }
+                bar.setVisibility(View.INVISIBLE);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<dataset> call, Throwable t) {
+
+            }
+        });
+   }
 }

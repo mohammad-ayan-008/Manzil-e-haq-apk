@@ -14,15 +14,26 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:inputType="number"
+        android:layout_margin="10dp"
+        android:background="@drawable/textdrawable"
         android:id="@+id/search"
         tools:ignore="ExtraText" />
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:background="@drawable/textdrawable"
+    android:scrollbars="vertical"
+    android:layout_margin="10dp"
+    android:layout_height="150dp">
     <TextView
+        android:padding="10dp"
         android:id="@+id/frame_text"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
 
+        android:fontFamily="@font/font1"
+        android:text="@string/hello_blank_fragment" />
+</ScrollView>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

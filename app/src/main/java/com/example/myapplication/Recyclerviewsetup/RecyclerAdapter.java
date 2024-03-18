@@ -1,6 +1,8 @@
 package com.example.myapplication.Recyclerviewsetup;
 
 import android.content.Context;
+import android.content.Intent;
+import android.provider.AlarmClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +55,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             button = v.findViewById(R.id.reminder);
             button.setOnClickListener((View view)->{
                 // Do main work
-                Toast.makeText(context,"hey",Toast.LENGTH_SHORT).show();
+                String time = namaz_time.getText().toString();
+                String hours=time.substring(0,time.indexOf(":")).trim();
+                String mins = time.substring(time.indexOf(":")+1,time.length()-5).trim();
+//              int hours =Integer.parseInt(time.substring(0,time.indexOf(":")-1));
+//              int mins =Integer.parseInt(time.substring(time.indexOf(":"),time.length()-1));
+
+                boolean is_pm = Integer.parseInt(hours) > 12 ?  true:false;
+                Toast.makeText(context,hours+"/"+mins,Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+                i.putExtra(AlarmClock.EXTRA_MESSAGE, "New Alarm");
+                i.putExtra(AlarmClock.EXTRA_HOUR, Integer.parseInt(hours));
+                i.putExtra(AlarmClock.EXTRA_MINUTES, Integer.parseInt(mins));
+                i.putExtra(AlarmClock.EXTRA_IS_PM,is_pm);
+                context.startActivity(i);
             });
         }
 
