@@ -2,6 +2,7 @@ package com.example.myapplication;
 import com.example.myapplication.NamazAPI.*;
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +54,7 @@ public class BlankFragment2 extends Fragment {
     public double latitude,longitude;
     public ProgressBar bar;
 
-    public boolean Location_Granted=false;
+    public boolean Location_Granted,permission,is_location=false;
 
 
     // TODO: Rename and change types and number of parameters
@@ -71,7 +73,25 @@ public class BlankFragment2 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         bar = view.findViewById(R.id.progressBar);
         bar.setVisibility(View.VISIBLE);
+
+
+        if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+
+        }
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                Intent location = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                location.putExtra("enabled",true);
+                getContext().startActivity(location);
+                Intent activity = new Intent(getActivity().getPackageName());
+                getActivity().startActivity(activity);
+                getActivity().finish();
+
+        }
+
+
+
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
@@ -91,6 +111,13 @@ public class BlankFragment2 extends Fragment {
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},100);
             return;
         }
+
+
+
+
+
+
+
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
 
 
@@ -108,6 +135,9 @@ public class BlankFragment2 extends Fragment {
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                Intent location = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                getContext().startActivity(location);
+
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

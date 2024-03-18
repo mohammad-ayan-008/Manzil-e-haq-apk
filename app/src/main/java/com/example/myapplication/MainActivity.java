@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         home = new BlankFragment2();
         ayat = new BlankFragment();
         setup_Drawer();
+
+
+
+
         bottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
