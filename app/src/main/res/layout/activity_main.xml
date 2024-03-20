@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:viewBindingIgnore="true"
     android:id="@+id/drawer"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
 
@@ -14,15 +15,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_weight="1"
-            app:title="Manzil-E-Haq"
-            android:background="?attr/colorPrimary"
+            android:background="?android:attr/textColorLinkInverse"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:theme="?attr/actionBarTheme"
+            app:title="Manzil-E-Haq" />
 
     <FrameLayout
         android:id="@+id/frames"
@@ -45,6 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="66dp"
             android:layout_gravity="bottom"
+            android:outlineAmbientShadowColor="@color/md_theme_dark_onTertiaryContainer"
+            app:itemRippleColor="?android:attr/textColorLinkInverse"
             android:background="@drawable/navigationitem"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"

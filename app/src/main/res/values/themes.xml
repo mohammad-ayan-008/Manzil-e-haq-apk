@@ -35,4 +35,8 @@
     </style>
 
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
+    <style name="splash" parent="Base.Theme.MyApplication">
+        <item name="android:windowBackground">@drawable/theme_logo</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

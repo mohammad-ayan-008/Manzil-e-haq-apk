@@ -10,14 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public Toolbar toolbar;
     public NavigationView nav;
     public Fragment home,ayat;
+    private BottomSheetDialog dialogue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,18 +75,21 @@ public class MainActivity extends AppCompatActivity {
       nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-              int home=R.id.nav_home;
-              int gallery=R.id.nav_gallery;
-              int settings=R.id.nav_settings;
+              int home=R.id.nav_abt;
+
               int id = item.getItemId();
-              if(id==home){
-
-              }else if (id==gallery){
-
+              if(id==home) {
+                 show_Dialodue();
               }
               layout.closeDrawer(GravityCompat.START);
               return true;
           }
       });
+     }
+
+     void show_Dialodue(){
+        dialogue = new BottomSheetDialog(this);
+        dialogue.setContentView(R.layout.bottomsheet_d);
+        dialogue.show();
      }
 }
