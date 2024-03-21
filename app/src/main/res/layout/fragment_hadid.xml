@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".community">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:background="@drawable/download"
+
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+        <ProgressBar
+            android:id="@+id/pb"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/hadeesview"
+        android:layout_weight="1"
+        android:layout_height="match_parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            >
+
+            <ImageButton
+                android:id="@+id/hadees_left"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/textdrawable"
+                android:src="@drawable/baseline_keyboard_arrow_left_24"
+                tools:ignore="MissingConstraints" />
+
+            <ImageButton
+
+                android:id="@+id/hadees_right"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left"
+                android:background="@drawable/textdrawable"
+                android:src="@drawable/baseline_chevron_right_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/pages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ayat_no"
+                android:fontFamily="@font/font1"
+                app:layout_constraintEnd_toStartOf="@+id/hadees_right"
+                app:layout_constraintStart_toEndOf="@+id/hadees_left"
+                tools:layout_editor_absoluteY="16dp"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</FrameLayout>

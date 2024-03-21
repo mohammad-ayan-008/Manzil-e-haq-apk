@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
     public NavigationView nav;
-    public Fragment home,ayat;
+    public Fragment home,ayat,community;
     private BottomSheetDialog dialogue;
 
     @Override
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         home = new BlankFragment2();
         ayat = new BlankFragment();
+        community = new community();
         setup_Drawer();
 
 
@@ -52,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if(id==R.id.home){
                     add(home,true);
-
                 }else if(id==R.id.ayat){
                     add(ayat,false);
+                }else if(id==R.id.posts){
+                    add(community,false);
                 }
                 return true;
             }

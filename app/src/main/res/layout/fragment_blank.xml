@@ -65,7 +65,7 @@
         >
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/hadees_left"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/textdrawable"
@@ -74,7 +74,7 @@
 
         <ImageButton
 
-            android:id="@+id/imageButton2"
+            android:id="@+id/hadees_right"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="left"
@@ -84,13 +84,13 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/pages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ayat_no"
             android:fontFamily="@font/font1"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/hadees_right"
+            app:layout_constraintStart_toEndOf="@+id/hadees_left"
             tools:layout_editor_absoluteY="16dp"
             tools:ignore="MissingConstraints" />
 

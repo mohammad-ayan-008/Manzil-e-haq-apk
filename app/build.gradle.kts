@@ -5,10 +5,10 @@ plugins {
 android {
     namespace = "com.example.myapplication"
     compileSdk = 34
-   buildFeatures{
-       viewBinding=true
+    buildFeatures{
+        viewBinding=true
+    }
 
-   }
     defaultConfig {
         applicationId = "com.example.myapplication"
         minSdk = 24
@@ -48,4 +48,6 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation ("org.mongodb:mongodb-driver-sync:4.1.1")
+
 }

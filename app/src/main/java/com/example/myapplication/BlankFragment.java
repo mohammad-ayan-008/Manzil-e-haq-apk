@@ -23,14 +23,11 @@ import com.example.myapplication.APIREQUST.Fetchdata;
 import com.example.myapplication.APIREQUST.QuranResponse;
 import com.example.myapplication.Recycle_dataset_ayat.*;
 import com.example.myapplication.RoomDATA.AyatData;
-import com.example.myapplication.RoomDATA.Databasee;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import com.example.myapplication.quran_page.*;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,13 +71,13 @@ public class BlankFragment extends Fragment {
         bar = view.findViewById(R.id.loading);
         Rview = view.findViewById(R.id.recyclerView);
         Rview.setLayoutManager(new LinearLayoutManager(getContext()));
-        ayat=view.findViewById(R.id.textView3);
+        ayat=view.findViewById(R.id.pages);
         adapter = new recycleradapter_ayat(getContext(),ayats);
         Rview.setAdapter(adapter);
         call_page(page);
 
-        button1 = view.findViewById(R.id.imageButton);
-        button2 = view.findViewById(R.id.imageButton2);
+        button1 = view.findViewById(R.id.hadees_left);
+        button2 = view.findViewById(R.id.hadees_right);
 
 
         button1.setOnClickListener(new View.OnClickListener() {
